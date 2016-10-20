@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import {Router} from '@angular/router';
+
 import {Hero} from './hero';
 import { HeroService } from './hero.service';
-import {Router} from '@angular/router';
+
 import { OnInit } from '@angular/core';
 
-const HEROES: Hero[];
 
 @Component({
     moduleId: module.id,
@@ -15,27 +16,26 @@ const HEROES: Hero[];
 
 export class HeroesComponent implements OnInit {
 
-  ngOnInit(): void {
-    this.getHeroes();
-  }
+  heroes: Hero[];
+  selectedHero: Hero;
 
   constructor(
     private router: Router,
     private heroService: HeroService
   ) {}
 
+  getHeroes(): void {
+    this.heroService.getHeroes()
+      .then(data => this.heroes = data);
+  }
 
-  heroes = HEROES;
-  selectedHero: Hero;
+  ngOnInit(): void {
+    this.getHeroes();
+  }
 
   onSelect(hero: Hero): void {
     console.log(hero);
     this.selectedHero = hero;
-  }
-
-  getHeroes(): void {
-    this.heroService.getHeroesSlowly()
-      .then(data => this.heroes = data);
   }
 
   gotoDetail(): void {

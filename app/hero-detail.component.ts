@@ -16,7 +16,7 @@ import {Hero} from './hero';
 
 export class HeroDetailComponent implements OnInit {
 
-  hero: Hero
+  hero: Hero;
 
   constructor(
     private heroService: HeroService,
